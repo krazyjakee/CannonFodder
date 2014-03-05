@@ -1,0 +1,17 @@
+{
+  "name": "CannonFodder",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krazyjakee/CannonFodder.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krazyjakee/CannonFodder/issues"
+  },
+  "dependencies": {
+    "coffee-script": "latest",
+    "bower": "latest"
+  }
+}
