@@ -13,7 +13,6 @@
   ],
   "dependencies": {
     "jquery": "latest",
-    "phaser": "latest",
-    "bootstrap": "latest"
+    "jquerykeyframes": "latest"
   }
 }
