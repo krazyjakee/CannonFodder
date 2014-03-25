@@ -13,3 +13,8 @@
   height: 32px;
   float: left;
 }
+
+.block {
+  background: red;
+  opacity: 0.3;
+}
