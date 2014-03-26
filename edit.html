@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cannon Fodder</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body onload="Editor.load();">
+    <div id="dev">
+      <select id="maps"></select>
+      <button id="save">Save</button>
+      <ul>
+        <li>
+          <input type="radio" id="blockAttr" name="attribute" value="block" /> <label for="blockAttr">Block</label>
+        </li>
+        <li>
+          <input type="radio" id="npcavoidAttr" name="attribute" value="npcavoid" /> <label for="npcavoidAttr">NPC Avoid</label>
+        </li>
+        <li>
+          <input type="radio" id="playerspawnAttr" name="attribute" value="playerspawn" /> <label for="playerspawnAttr">Player Spawn</label>
+        </li>
+      </ul>
+    </div>
+    <div id="game" oncontextmenu="return false;"></div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquerykeyframes/jquery.keyframes.js"></script>
+    <script src="js/edit.js"></script>
+  </body>
+</html>

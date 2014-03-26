@@ -4,7 +4,7 @@
 		$name = $_POST['saveAttr'];
 		$attrs = $_POST['value'];
 
-		file_put_contents("resources/map/".$name.".json", $attrs);
+		file_put_contents("resources/map/".$name."_attributes.json", $attrs);
 	}
 	else if(isset($_GET['loadMaps'])){
 		$dir = dirname(__FILE__)."\\resources\\map";

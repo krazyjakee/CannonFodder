@@ -1,2 +1,3 @@
 $(window).load ->
-  Editor.load('testmap')
+  Map.loadMap 'testmap', ->
+  	Character.loadPlayer 'soldier'

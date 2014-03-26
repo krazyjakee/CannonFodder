@@ -1,3 +1,7 @@
+html, body
+  padding: 0
+  margin: 0
+
 #game
   position: relative
 .layer
@@ -8,7 +12,28 @@
   width: 32px
   height: 32px
   float: left
+.player
+  width: 24px
+  height: 32px
 
 .block
   background: red
   opacity: 0.3
+.npcavoid
+  background: pink
+  opacity: 0.3
+.playerspawn
+  background: lightblue
+  opacity: 0.3
+
+#dev
+  position: fixed
+  float: right
+  top: 0px
+  right: 0px
+  padding: 20px
+  background: #ddd
+  z-index: 1
+  ul
+    list-style: none
+    padding: 0
