@@ -1,29 +1,58 @@
 var Character;
 
 Character = {
-  player: {
-    id: 0,
-    elem: false
-  },
   store: [],
+  get: function(id) {
+    var player, _i, _len, _ref;
+    _ref = Character.store;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      player = _ref[_i];
+      if (player.id === id) {
+        return player;
+      }
+    }
+  },
+  set: function(id, key, value) {
+    var player, _i, _len, _ref, _results;
+    _ref = Character.store;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      player = _ref[_i];
+      if (player.id === id) {
+        _results.push(player[key] = value);
+      }
+    }
+    return _results;
+  },
   loadPlayer: function(sprite) {
     var elem, id;
-    id = Character.store.length;
+    id = 0;
     elem = $("<div class='player sprite-" + sprite + " char-" + id + "'></div>").css("background-image", "url(resources/img/" + sprite + ".png)");
     Map.playerLayer.append(elem);
     Character.store.push({
-      id: id,
+      id: 0,
       type: 'player',
-      sprite: sprite,
       top: 0,
       left: 0,
       timer: false,
-      direction: ''
+      direction: '',
+      elem: $('.player'),
+      spriteImg: sprite,
+      spriteX: 0,
+      spritePlay: false,
+      spriteIterator: setInterval(function() {
+        var charData;
+        if ((charData = Character.get(id)).spritePlay) {
+          if (charData.spriteX === 2) {
+            return charData.spriteX = 0;
+          } else {
+            return charData.spriteX = charData.spriteX + 1;
+          }
+        }
+      }, 100)
     });
-    Character.player.id = id;
-    Character.player.elem = $('.player');
-    Character.setupInput(id);
-    return Character.spriteMover(id);
+    Character.setupInput(0);
+    return Character.spriteMover(0);
   },
   keysDown: '',
   setupInput: function(id) {
@@ -50,7 +79,7 @@ Character = {
     });
     return $(document.body).on('keyup', function(e) {
       var charData;
-      charData = Character.store[id];
+      charData = Character.get(id);
       switch (e.which) {
         case 83:
           return Character.keysDown = Character.keysDown.replace(/s/g, '');
@@ -64,9 +93,9 @@ Character = {
     });
   },
   spriteMover: function(id) {
-    return Character.store[id].timer = setInterval(function() {
-      var charData, d, direction, rules, _i, _len;
-      charData = Character.store[id];
+    return Character.set(id, 'timer', setInterval(function() {
+      var charData, d, direction, rules, spriteY, _i, _len;
+      charData = Character.get(id);
       direction = '';
       if (Character.keysDown.indexOf('s') > -1) {
         direction += 's';
@@ -80,32 +109,47 @@ Character = {
       if (Character.keysDown.indexOf('w') > -1) {
         direction += 'w';
       }
+      if (direction) {
+        charData.spritePlay = true;
+      } else {
+        charData.spritePlay = false;
+      }
+      spriteY = false;
       for (_i = 0, _len = direction.length; _i < _len; _i++) {
         d = direction[_i];
         switch (d) {
-          case 'w':
-            rules = {
-              top: charData.top--
-            };
-            break;
           case 'a':
             rules = {
               left: charData.left--
             };
-            break;
-          case 's':
-            rules = {
-              top: charData.top++
-            };
+            spriteY = 96;
             break;
           case 'd':
             rules = {
               left: charData.left++
             };
+            spriteY = 32;
+            break;
+          case 'w':
+            rules = {
+              top: charData.top--
+            };
+            spriteY = 0;
+            break;
+          case 's':
+            rules = {
+              top: charData.top++
+            };
+            spriteY = 64;
         }
-        Character.player.elem.css(rules);
+        charData.elem.css(rules);
+      }
+      if (spriteY > -1) {
+        charData.elem.css({
+          'background-position': -(charData.spriteX * 24) + 'px -' + spriteY + 'px'
+        });
       }
       return charData.direction = direction.split('').sort().join('');
-    }, 10);
+    }, 16));
   }
 };
